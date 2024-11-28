@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "SQLQuery";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form method="post" asp-action="ExecuteQuery">
+    <label for="sqlQuery">Escribe tu consulta SQL:</label>
+    <input type="text" id="sqlQuery" name="sqlQuery" required />
+    <button type="submit">Ejecutar</button>
+</form>
+
+<!-- MENSAJE ERROR -->
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">@ViewBag.Error</p>
+}
+
+<!-- RESULTADOS -->
+@if (ViewBag.Columns != null)
+{
+    <table>
+        <thead>
+            <tr>
+                @foreach (var column in ViewBag.Columns)
+                {
+                    <th>@column</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in ViewBag.Results)
+            {
+                <tr>
+                    @foreach (var cell in row)
+                    {
+                        <td>@cell</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
